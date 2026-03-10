@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>View Trains</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .table-box {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="home"><p class="menu"><a href="UserHome.html">Home</a></p></div>
+    <div class="home"><p class="menu"><a href="UserViewTrains.html">View Trains</a></p></div>
+    <div class="home"><p class="menu"><a href="TrainBwStn.html">Between Stations</a></p></div>
+    <div class="home"><p class="menu"><a href="Availability.html">Seat Availability</a></p></div>
+    <div class="home"><p class="menu"><a href="Fare.html">Fare Enquiry</a></p></div>
+    <div class="home"><p class="menu"><a href="SearchTrains.html">Search Train</a></p></div>
+    <div class="home"><p class="menu"><a href="Payment.html">Payments</a></p></div>
+    <div class="home"><p class="menu"><a href="index.html">Logout</a></p></div>
+
+</header>
+
+<div class="card shadow table-box">
+
+    <h3 class="text-center mb-3">🚆 Available Trains</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Train No</th>
+                <th>Train Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Available</th>
+                <th>Fare</th>
+            </tr>
+        </thead>
+        <tbody id="trainTable">
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+
+fetch("http://127.0.0.1:5000/view_trains")
+.then(res => res.json())
+.then(data => {
+
+    const table = document.getElementById("trainTable");
+
+    let rows = "";
+
+    data.forEach(train => {
+
+        rows += `
+            <tr>
+                <td>${train.trainno}</td>
+                <td>${train.trainname}</td>
+                <td>${train.fromstation}</td>
+                <td>${train.tostation}</td>
+                <td>${train.available}</td>
+                <td>₹${train.fare}</td>
+            </tr>
+        `;
+    });
+
+    table.innerHTML = rows;
+
+})
+.catch(err => {
+
+    alert("Backend broke mama 😭");
+    console.log(err);
+
+});
+
+</script>
+
+</body>
+</html>

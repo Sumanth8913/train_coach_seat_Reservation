@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Trains Between Stations</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .search-box {
+        width: 420px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 25px;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="home"><p class="menu"><a href="UserHome.html">Home</a></p></div>
+    <div class="home"><p class="menu"><a href="UserViewTrains.html">View Trains</a></p></div>
+    <div class="home"><p class="menu"><a href="TrainBwStn.html">Between Stations</a></p></div>
+    <div class="home"><p class="menu"><a href="Availability.html">Seat Availability</a></p></div>
+    <div class="home"><p class="menu"><a href="Fare.html">Fare Enquiry</a></p></div>
+    <div class="home"><p class="menu"><a href="SearchTrains.html">Search Train</a></p></div>
+    <div class="home"><p class="menu"><a href="index.html">Logout</a></p></div>
+
+</header>
+
+<div class="card shadow search-box">
+
+    <h3 class="text-center mb-3">🚆 Trains Between Stations</h3>
+
+    <div class="mb-2">
+        <label>From Station</label>
+        <input type="text" id="fromstation" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>To Station</label>
+        <input type="text" id="tostation" class="form-control">
+    </div>
+
+    <button class="btn btn-primary w-100" onclick="searchBetweenStations()">
+        SEARCH TRAINS 😏🔥
+    </button>
+
+</div>
+
+<div class="container mt-3">
+    <div id="result"></div>
+</div>
+
+<script>
+
+function searchBetweenStations() {
+
+    const fromstation = document.getElementById("fromstation").value;
+    const tostation = document.getElementById("tostation").value;
+
+    if (!fromstation || !tostation) {
+        alert("Fill all fields mama 😌");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5000/trains_between/${fromstation}/${tostation}`)
+    .then(res => res.json())
+    .then(data => {
+
+        const resultDiv = document.getElementById("result");
+
+        if (data.status === "not_found") {
+
+            resultDiv.innerHTML =
+                "<div class='alert alert-danger'>No Trains Found 😭</div>";
+
+        } else {
+
+            let cards = "";
+
+            data.trains.forEach(train => {
+
+                cards += `
+                    <div class='card shadow p-3 mb-2'>
+                        <h5>🚆 ${train.trainname}</h5>
+                        <p><b>Train No:</b> ${train.trainno}</p>
+                        <p><b>Available:</b> ${train.available}</p>
+                        <p><b>Fare:</b> ₹${train.fare}</p>
+                    </div>
+                `;
+            });
+
+            resultDiv.innerHTML = cards;
+        }
+
+    })
+    .catch(err => {
+
+        alert("Backend broke mama 😭");
+        console.log(err);
+
+    });
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    .dashboard-box {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .card-option {
+        width: 250px;
+        margin: 15px;
+        display: inline-block;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .card-option:hover {
+        transform: scale(1.05);
+    }
+
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="home"><p class="menu"><a href="AdminHome.html">Home</a></p></div>
+    <div class="home"><p class="menu"><a href="UserViewTrains.html">View Trains</a></p></div>
+    <div class="home"><p class="menu"><a href="AdminSearchTrain.html">Search By TrainNo</a></p></div>
+    <div class="home"><p class="menu"><a href="AddTrains.html">Add Train</a></p></div>
+    <div class="home"><p class="menu"><a href="CancleTrain.html">Delete Train</a></p></div>
+    <div class="home"><p class="menu"><a href="AdminUpdateTrain.html">Update Train</a></p></div>
+    <div class="home"><p class="menu"><a href="index.html">Logout</a></p></div>
+</header>
+
+<div class='tab'>
+    <p class='menu'>Hey, Admin 😎🔥 Welcome Back</p>
+</div>
+
+<div class="dashboard-box">
+
+    <h3 class="mb-4">⚙️ Admin Controls</h3>
+
+    <a href="AddTrains.html">
+        <div class="card shadow card-option">
+            <div class="card-body">
+                <h5>Add Train 🚆</h5>
+                <p>Create new train entries</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="UserViewTrains.html">
+        <div class="card shadow card-option">
+            <div class="card-body">
+                <h5>View Trains 👀</h5>
+                <p>Check all train records</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="AdminSearchTrain.html">
+        <div class="card shadow card-option">
+            <div class="card-body">
+                <h5>Search Train 🔍</h5>
+                <p>Find trains by number</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="CancleTrain.html">
+        <div class="card shadow card-option">
+            <div class="card-body">
+                <h5>Delete Train ❌</h5>
+                <p>Remove train from system</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="AdminUpdateTrain.html">
+        <div class="card shadow card-option">
+            <div class="card-body">
+                <h5>Update Train ✏️</h5>
+                <p>Edit train details</p>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+</body>
+</html>

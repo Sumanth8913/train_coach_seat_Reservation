@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cancel Train</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .cancel-box {
+        width: 400px;
+        margin: auto;
+        margin-top: 60px;
+        padding: 25px;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="home"><p class="menu"><a href="AdminHome.html">Home</a></p></div>
+    <div class="home"><p class="menu"><a href="UserViewTrains.html">View Trains</a></p></div>
+    <div class="home"><p class="menu"><a href="AdminSearchTrain.html">Search Train</a></p></div>
+    <div class="home"><p class="menu"><a href="AddTrains.html">Add Train</a></p></div>
+    <div class="home"><p class="menu"><a href="CancelTrain.html">Delete Train</a></p></div>
+    <div class="home"><p class="menu"><a href="AdminUpdateTrain.html">Update Train</a></p></div>
+    <div class="home"><p class="menu"><a href="index.html">Logout</a></p></div>
+
+</header>
+
+<div class="card shadow cancel-box">
+
+    <h3 class="text-center mb-3">❌ Train Cancellation</h3>
+
+    <div class="mb-3">
+        <label>Train Number</label>
+        <input type="text" id="trainno" class="form-control">
+    </div>
+
+    <button class="btn btn-danger w-100" onclick="cancelTrain()">
+        CANCEL TRAIN 😈🔥
+    </button>
+
+</div>
+
+<script>
+
+function cancelTrain() {
+
+    const trainno = document.getElementById("trainno").value;
+
+    if (!trainno) {
+        alert("Enter train number mama 😌");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5000/delete_train/${trainno}`, {
+
+        method: "DELETE"
+
+    })
+    .then(res => res.json())
+    .then(response => {
+
+        if (response.status === "success") {
+
+            alert("Train Cancelled Successfully 😌🔥");
+
+            document.getElementById("trainno").value = "";
+
+        } else {
+
+            alert("Train Not Found 😭");
+
+        }
+
+    })
+    .catch(err => {
+
+        alert("Backend broke mama 😭");
+
+        console.log(err);
+
+    });
+}
+
+</script>
+
+</body>
+</html>

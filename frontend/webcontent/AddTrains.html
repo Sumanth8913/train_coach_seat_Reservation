@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Trains</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap for better UI 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    .card-box {
+        width: 450px;
+        margin: auto;
+        margin-top: 40px;
+        padding: 25px;
+        border-radius: 15px;
+        background-color: white;
+    }
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="home"><p class="menu"><a href="AdminHome.html">Home</a></p></div>
+    <div class="home"><p class="menu"><a href="UserViewTrains.html">View Trains</a></p></div>
+    <div class="home"><p class="menu"><a href="AdminSearchTrain.html">Search Train</a></p></div>
+    <div class="home"><p class="menu"><a href="AddTrains.html">Add Train</a></p></div>
+    <div class="home"><p class="menu"><a href="CancleTrain.html">Delete Train</a></p></div>
+    <div class="home"><p class="menu"><a href="AdminUpdateTrain.html">Update Train</a></p></div>
+    <div class="home"><p class="menu"><a href="index.html">Logout</a></p></div>
+
+</header>
+
+<div class="card shadow card-box">
+
+    <h3 class="text-center mb-3">🚆 Add New Train</h3>
+
+    <div class="mb-2">
+        <label>Train Number</label>
+        <input type="text" id="trainno" class="form-control">
+    </div>
+
+    <div class="mb-2">
+        <label>Train Name</label>
+        <input type="text" id="trainname" class="form-control">
+    </div>
+
+    <div class="mb-2">
+        <label>From Station</label>
+        <input type="text" id="fromstation" class="form-control">
+    </div>
+
+    <div class="mb-2">
+        <label>To Station</label>
+        <input type="text" id="tostation" class="form-control">
+    </div>
+
+    <div class="mb-2">
+        <label>Available Seats</label>
+        <input type="text" id="available" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Fare (INR)</label>
+        <input type="text" id="fare" class="form-control">
+    </div>
+
+    <button class="btn btn-success w-100" onclick="addTrain()">
+        ADD TRAIN 😏🔥
+    </button>
+
+</div>
+
+<script>
+
+function addTrain() {
+
+    const trainno = document.getElementById("trainno").value;
+
+    if (!trainno) {
+        alert("Train Number required mama 😌");
+        return;
+    }
+
+    const data = {
+        trainno: trainno,
+        trainname: document.getElementById("trainname").value,
+        fromstation: document.getElementById("fromstation").value,
+        tostation: document.getElementById("tostation").value,
+        available: document.getElementById("available").value,
+        fare: document.getElementById("fare").value
+    };
+
+    fetch("http://127.0.0.1:5000/add_train", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(data)
+
+    })
+    .then(res => res.json())
+    .then(response => {
+
+        alert("Train Added Successfully 😌🔥");
+
+        // ✅ Clear fields after insert 😏
+        document.getElementById("trainno").value = "";
+        document.getElementById("trainname").value = "";
+        document.getElementById("fromstation").value = "";
+        document.getElementById("tostation").value = "";
+        document.getElementById("available").value = "";
+        document.getElementById("fare").value = "";
+
+    })
+    .catch(err => {
+
+        alert("Backend broke mama 😭");
+
+        console.log(err);
+
+    });
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>User Login</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .login-box {
+        width: 400px;
+        margin: auto;
+        margin-top: 60px;
+        padding: 25px;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="main">
+        <span class="menu"><a href="UserLogin.html">Login as User</a></span>
+        <span class="menu"><a href="UserRegister.html">New User Register</a></span>
+        <span class="menu"><a href="AdminLogin.html">Login as Admin</a></span>
+    </div>
+
+</header>
+
+<div class="card shadow login-box">
+
+    <h3 class="text-center mb-3">👤 User Login</h3>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="text" id="uname" class="form-control" placeholder="Enter Email">
+    </div>
+
+    <div class="mb-3">
+        <label>Password</label>
+        <input type="password" id="pword" class="form-control" placeholder="Enter Password">
+    </div>
+
+    <button class="btn btn-primary w-100" onclick="userLogin()">
+        LOGIN 😏🔥
+    </button>
+
+</div>
+
+<script>
+
+function userLogin() {
+
+    const uname = document.getElementById("uname").value;
+    const pword = document.getElementById("pword").value;
+
+    if (!uname || !pword) {
+        alert("Fill all fields mama 😌");
+        return;
+    }
+
+    fetch("http://127.0.0.1:5000/user_login", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            uname: uname,
+            pword: pword
+        })
+
+    })
+    .then(res => res.json())
+    .then(response => {
+
+        if (response.status === "success") {
+
+            window.location.href = "UserHome.html";
+
+        } else {
+
+            alert("Invalid Credentials 😭");
+
+        }
+
+    })
+    .catch(err => {
+
+        alert("Backend broke mama 😭");
+        console.log(err);
+
+    });
+}
+
+</script>
+
+</body>
+</html>

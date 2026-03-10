@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Search Train</title>
+
+<link rel="stylesheet" href="UserHome_Css.css">
+
+<!-- ✅ Bootstrap 😏 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .search-box {
+        width: 420px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 25px;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+</style>
+
+</head>
+
+<body class="container">
+
+<header>
+
+    <h1 class="hd">National Ticket Booking Spot</h1>
+
+    <div class="home"><p class="menu"><a href="UserHome.html">Home</a></p></div>
+    <div class="home"><p class="menu"><a href="UserViewTrains.html">View Trains</a></p></div>
+    <div class="home"><p class="menu"><a href="TrainBwStn.html">Trains Between Stations</a></p></div>
+    <div class="home"><p class="menu"><a href="Availability.html">Seat Availability</a></p></div>
+    <div class="home"><p class="menu"><a href="Fare.html">Fare Enquiry</a></p></div>
+    <div class="home"><p class="menu"><a href="SearchTrains.html">Search Train</a></p></div>
+    <div class="home"><p class="menu"><a href="index.html">Logout</a></p></div>
+
+</header>
+
+<div class="card shadow search-box">
+
+    <h3 class="text-center mb-3">🔍 Train Enquiry</h3>
+
+    <div class="mb-3">
+        <label>Train Number</label>
+        <input type="text" id="trainnumber" class="form-control">
+    </div>
+
+    <button class="btn btn-primary w-100" onclick="searchTrain()">
+        SEARCH TRAIN 😏🔥
+    </button>
+
+</div>
+
+<div class="container mt-3">
+    <div id="result"></div>
+</div>
+
+<script>
+
+function searchTrain() {
+
+    const trainnumber = document.getElementById("trainnumber").value;
+
+    if (!trainnumber) {
+        alert("Enter train number mama 😌");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5000/search_train/${trainnumber}`)
+    .then(res => res.json())
+    .then(data => {
+
+        const resultDiv = document.getElementById("result");
+
+        if (data.status === "not_found") {
+
+            resultDiv.innerHTML =
+                "<div class='alert alert-danger'>Train Not Found 😭</div>";
+
+        } else {
+
+            resultDiv.innerHTML = `
+                <div class='card shadow p-3'>
+                    <h5>🚆 ${data.trainname}</h5>
+                    <p><b>From:</b> ${data.fromstation}</p>
+                    <p><b>To:</b> ${data.tostation}</p>
+                    <p><b>Available:</b> ${data.available}</p>
+                    <p><b>Fare:</b> ₹${data.fare}</p>
+                </div>
+            `;
+        }
+
+    })
+    .catch(err => {
+
+        alert("Backend broke mama 😭");
+        console.log(err);
+
+    });
+}
+
+</script>
+
+</body>
+</html>
