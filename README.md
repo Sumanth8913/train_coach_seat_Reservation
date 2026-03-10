@@ -46,9 +46,7 @@ train_coach_seat_Reservation
 │       ├── ViewTrains.html
 │       ├── error.html
 │       ├── UserHome_Css.css
-│       ├── forest.jpg
-│       └── sandy.jpg
-│
+│       
 └── README.md
 ```
 
